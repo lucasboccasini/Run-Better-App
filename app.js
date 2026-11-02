@@ -99,7 +99,25 @@
     };
     return bank[focus][equipment];
   };
-  const goalNames={general:"General strength",powerlifting:"Powerlifting",bodybuilding:"Bodybuilding",crossfit:"CrossFit-style conditioning"};
+  const bodybuildingMoves={
+    upper:{bodyweight:["Slow wall push-ups","Prone Y-T raises","Pike push-ups","Close-grip incline push-ups"],dumbbells:["Dumbbell incline press","One-arm dumbbell row","Lateral raises","Dumbbell curls","Overhead triceps extensions","Rear-delt raises"],gym:["Machine chest press","Lat pulldown","Cable fly","Seated cable row","Lateral raises","Cable curls"]},
+    lower:{bodyweight:["Tempo squats","Glute bridges","Reverse lunges","Single-leg calf raises"],dumbbells:["Goblet squat","Dumbbell Romanian deadlift","Bulgarian split squat","Hip thrust","Calf raises","Leg curl with sliders"],gym:["Leg press","Romanian deadlift","Leg extension","Seated leg curl","Hip thrust","Calf raise"]},
+    full:{bodyweight:["Tempo squats","Slow wall push-ups","Glute bridges","Reverse lunges"],dumbbells:["Goblet squat","Dumbbell incline press","One-arm dumbbell row","Romanian deadlift","Lateral raise","Dumbbell curls"],gym:["Leg press","Machine chest press","Lat pulldown","Seated leg curl","Cable fly","Lateral raise"]},
+    core:{bodyweight:["Crunch variation","Reverse crunch","Side plank","Dead bug"],dumbbells:["Weighted crunch","Suitcase carry","Reverse crunch","Side plank"],gym:["Cable crunch","Captain's chair knee raise","Pallof press","Back extension"]}
+  };
+  const crossfitMoves={
+    upper:{bodyweight:["Incline or floor push-ups","Bear crawl","Inchworm walkouts","Plank shoulder taps"],dumbbells:["Dumbbell push press","Renegade row","Dumbbell thruster","Farmer carry"],gym:["Barbell push press","Ring row or pull-up","Wall-ball squat and throw","Farmer carry"]},
+    lower:{bodyweight:["Air squats","Step-ups","Reverse lunges","Broad-jump practice"],dumbbells:["Dumbbell thruster","Dumbbell deadlift","Step-ups","Farmer carry"],gym:["Front squat","Deadlift","Box step-ups","Wall-ball squat and throw"]},
+    full:{bodyweight:["Air squats","Incline or floor push-ups","Step-ups","Bear crawl"],dumbbells:["Dumbbell thruster","Dumbbell deadlift","Renegade row","Farmer carry"],gym:["Front squat","Barbell push press","Ring row or pull-up","Wall-ball squat and throw"]},
+    core:{bodyweight:["Dead bug","Plank hold","Bear crawl","Mountain climber"],dumbbells:["Suitcase carry","Plank hold","Dumbbell march","Dead bug"],gym:["Hanging knee raise","Pallof press","Farmer carry","Plank hold"]}
+  };
+  const goalNames={powerlifting:"Powerlifting",bodybuilding:"Bodybuilding",crossfit:"CrossFit",recreational:"Recreational"};
+  const movesForGoal=(goal,focus,equipment)=>{
+    if(goal==="powerlifting")return powerMoves(focus,equipment);
+    if(goal==="bodybuilding")return bodybuildingMoves[focus][equipment];
+    if(goal==="crossfit")return crossfitMoves[focus][equipment];
+    return moveBank[focus][equipment];
+  };
   const makeRun=(focus,level,minutes)=>{
     const beginner=level==="Beginner",warm=5,cool=5,work=Math.max(5,minutes-warm-cool);
     const titles={easy:"Easy conversational run",long:"Long run",intervals:"Speed intervals",tempo:"Tempo run",return:"Run-walk return session"};
@@ -123,7 +141,7 @@
   const makeLift=(focus,goal,equipment,level,minutes)=>{
     const beginner=level==="Beginner",body=equipment==="bodyweight",advanced=level!=="Beginner";
     const names={upper:"Upper body",lower:"Lower body",full:"Full body",core:"Core"};
-    const moves=goal==="powerlifting"?powerMoves(focus,equipment):moveBank[focus][equipment];
+    const moves=movesForGoal(goal,focus,equipment);
     let steps=[];
     if(goal==="powerlifting"){
       const main=moves[0],secondary=moves.slice(1);
@@ -143,7 +161,7 @@
       steps.push(["Warm up",Math.max(8,Math.round(minutes*.08))+" min easy cardio + mobility"]);
       steps.push(["Strength / skill",moves.slice(0,2).join(" + ")+" · "+(beginner?"3 × 5–8 easy reps":"4 × 4–6 crisp reps")+"; practice before adding load"]);
       if(minutes>=60)steps.push(["Skill practice",Math.max(10,Math.round(minutes*.2))+" min on controlled technique (such as squat, hinge, press, or jump-rope basics); rest as needed"]);
-      steps.push(["Conditioning workout",beginner?"8–12 min easy circuit: 6 chair squats, 6 incline push-ups, 30 sec brisk walk; repeat smoothly.":"12–20 min controlled circuit: 8 squats, 8 push-ups (scale as needed), 10 light rows, 30 sec easy cardio; steady rounds, not an all-out sprint."]);
+      steps.push(["Conditioning workout",beginner?"8–12 min easy circuit: 6 controlled reps each of "+moves.slice(0,3).join(", ")+". Scale the movement and repeat smoothly.":"12–20 min controlled circuit: 8 controlled reps each of "+moves.slice(0,3).join(", ")+". Keep a steady pace, not an all-out sprint."]);
       if(minutes>=90)steps.push(["Easy aerobic / mobility",Math.max(15,minutes-60)+" min low-intensity walk/bike and mobility. Long sessions are not extra hours of high-intensity work."]);
       steps.push(["Cool down","5–10 min gentle walking and breathing"]);
       steps.push(["Scale it",scaled]);
