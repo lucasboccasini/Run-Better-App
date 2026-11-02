@@ -45,29 +45,13 @@
     }
   };
   const builderForm=document.getElementById("builder-form");
-  builderForm.innerHTML=`
-    <div class="builder-fields">
-      <label>What do you want to build?<select id="plan-type"><option value="Run">Run</option><option value="Lift">Lift</option></select></label>
-      <label>Your experience<select id="plan-level"><option value="Beginner">Beginner</option><option value="Experienced">Experienced</option></select></label>
-      <div class="builder-choice" id="run-options">
-        <label>What kind of run?<select id="run-focus"><option value="easy">Easy run</option><option value="long">Long run</option><option value="intervals">Speed intervals</option><option value="tempo">Tempo run</option><option value="return">Getting back into running</option></select></label>
-        <label>How long?<select id="run-duration"><option value="20">20 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">60 minutes</option><option value="75">75 minutes</option></select></label>
-      </div>
-      <div class="builder-choice" id="lift-options" hidden>
-        <label>What do you want to work on?<select id="lift-focus"><option value="upper">Upper body</option><option value="lower">Lower body</option><option value="full">Full body</option><option value="core">Core</option></select></label>
-        <label>What equipment do you have?<select id="lift-equipment"><option value="bodyweight">No equipment</option><option value="dumbbells">Dumbbells</option><option value="gym">Full gym</option></select></label>
-        <label>How long?<select id="lift-duration"><option value="20">20 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option></select></label>
-      </div>
-      <label>Pick a day<input id="plan-date" type="date" required></label>
-      <button class="start-button builder-submit" id="generate-plan" type="button"><span class="play-icon">✳</span><span>Build my session</span><span class="button-arrow">↗</span></button>
-      <p class="form-note" id="form-note" aria-live="polite">Your plan is made for your choices and saved on this device.</p>
-    </div>
-    <div id="generated-plan" class="generated-plan" hidden aria-live="polite"></div>`;
+  builderForm.innerHTML="\n    <div class=\"builder-fields\">\n      <label>What do you want to build?<select id=\"plan-type\"><option value=\"Run\">Run</option><option value=\"Lift\">Lift</option></select></label>\n      <label>Your experience<select id=\"plan-level\"><option value=\"Beginner\">Beginner</option><option value=\"Experienced\">Experienced / advanced</option></select></label>\n      <div class=\"builder-choice\" id=\"run-options\">\n        <label>What kind of run?<select id=\"run-focus\"><option value=\"easy\">Easy run</option><option value=\"long\">Long run</option><option value=\"intervals\">Speed intervals</option><option value=\"tempo\">Tempo run</option><option value=\"return\">Getting back into running</option></select></label>\n        <label>How long?<select id=\"run-duration\"></select></label>\n      </div>\n      <div class=\"builder-choice\" id=\"lift-options\" hidden>\n        <label>What are you training for?<select id=\"lift-goal\"><option value=\"general\">General strength</option><option value=\"powerlifting\">Powerlifting</option><option value=\"bodybuilding\">Bodybuilding</option><option value=\"crossfit\">CrossFit-style training</option></select></label>\n        <label>What do you want to work on?<select id=\"lift-focus\"><option value=\"full\">Full body</option><option value=\"upper\">Upper body</option><option value=\"lower\">Lower body</option><option value=\"core\">Core</option></select></label>\n        <label>What equipment do you have?<select id=\"lift-equipment\"><option value=\"bodyweight\">No equipment</option><option value=\"dumbbells\">Dumbbells</option><option value=\"gym\">Full gym / barbell</option></select></label>\n        <label>How long?<select id=\"lift-duration\"><option value=\"20\">20 minutes</option><option value=\"30\">30 minutes</option><option value=\"45\">45 minutes</option><option value=\"60\">1 hour</option><option value=\"75\">1 hour 15 minutes</option><option value=\"90\">1 hour 30 minutes</option><option value=\"120\">2 hours</option><option value=\"150\">2 hours 30 minutes</option><option value=\"180\">3 hours</option></select></label>\n      </div>\n      <p class=\"builder-level-note\" id=\"builder-level-note\">Beginner sessions teach the basics with lighter volume and simple progressions.</p>\n      <label>Pick a day<input id=\"plan-date\" type=\"date\" required></label>\n      <button class=\"start-button builder-submit\" id=\"generate-plan\" type=\"button\"><span class=\"play-icon\">✳</span><span>Build my session</span><span class=\"button-arrow\">↗</span></button>\n      <p class=\"form-note\" id=\"form-note\" aria-live=\"polite\">Choose a goal and get a session built around your experience, time, and equipment.</p>\n    </div>\n    <div id=\"generated-plan\" class=\"generated-plan\" hidden aria-live=\"polite\"></div>";
   const style=document.createElement("style");
   style.textContent=`
     .builder-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
     .builder-choice{display:contents}
     .builder-choice[hidden]{display:none}
+    .builder-level-note{grid-column:1/-1;margin:-2px 0 0;padding:10px 12px;border-radius:8px;background:#f0f3e9;color:#67785f;font-size:10px;line-height:1.5}
     .generated-plan{margin-top:18px;padding:19px;border:1px solid #dfe7d7;border-radius:14px;background:linear-gradient(145deg,#f4f6ee,#fffefa)}
     .generated-plan[hidden]{display:none}
     .generated-plan h3{font:500 21px var(--serif);color:var(--forest);margin:7px 0}
@@ -86,65 +70,99 @@
   planDate.value=fmtDate(today);planDate.min=fmtDate(today);
   const typeSelect=document.getElementById("plan-type"), runOptions=document.getElementById("run-options"), liftOptions=document.getElementById("lift-options");
   const runFocus=document.getElementById("run-focus"), runDuration=document.getElementById("run-duration");
-  const setRunDurations=()=>{const choices=runFocus.value==="long"?[["30","30 minutes"],["45","45 minutes"],["60","60 minutes"],["75","75 minutes"],["90","90 minutes"]]:runFocus.value==="return"?[["15","15 minutes"],["20","20 minutes"],["25","25 minutes"],["30","30 minutes"]]:[["20","20 minutes"],["30","30 minutes"],["45","45 minutes"],["60","60 minutes"]];const previous=runDuration.value;runDuration.innerHTML=choices.map(([value,label])=>`<option value="${value}">${label}</option>`).join("");runDuration.value=choices.some(([value])=>value===previous)?previous:(runFocus.value==="long"?"45":choices[0][0])};
-  runFocus.addEventListener("change",setRunDurations);
+  const runChoices={
+    long:[[30,"30 minutes"],[45,"45 minutes"],[60,"1 hour"],[75,"1 hour 15 minutes"],[90,"1 hour 30 minutes"],[105,"1 hour 45 minutes"],[120,"2 hours"],[150,"2 hours 30 minutes"],[180,"3 hours"]],
+    easy:[[20,"20 minutes"],[30,"30 minutes"],[45,"45 minutes"],[60,"1 hour"],[75,"1 hour 15 minutes"],[90,"1 hour 30 minutes"],[120,"2 hours"],[150,"2 hours 30 minutes"],[180,"3 hours"]],
+    intervals:[[20,"20 minutes"],[30,"30 minutes"],[45,"45 minutes"],[60,"1 hour"],[75,"1 hour 15 minutes"]],
+    tempo:[[20,"20 minutes"],[30,"30 minutes"],[45,"45 minutes"],[60,"1 hour"],[75,"1 hour 15 minutes"]],
+    return:[[15,"15 minutes"],[20,"20 minutes"],[25,"25 minutes"],[30,"30 minutes"],[45,"45 minutes"],[60,"1 hour"],[75,"1 hour 15 minutes"],[90,"1 hour 30 minutes"]]
+  };
+  const setRunDurations=()=>{const choices=runChoices[runFocus.value],previous=Number(runDuration.value);runDuration.innerHTML=choices.map(item=>'<option value="'+item[0]+'">'+item[1]+'</option>').join("");runDuration.value=choices.some(item=>item[0]===previous)?String(previous):(runFocus.value==="long"?"45":String(choices[0][0]))};
+  runFocus.addEventListener("change",setRunDurations);setRunDurations();
+  const levelSelect=document.getElementById("plan-level"), levelNote=document.getElementById("builder-level-note");
+  const updateLevelNote=()=>{levelNote.textContent=levelSelect.value==="Beginner"?"Beginner: simpler movements, lighter volume, technique practice, and clear rest.":"Experienced / advanced: heavier or more technical variations, more working sets, and goal-specific programming. Use loads you can control.";};
+  levelSelect.addEventListener("change",updateLevelNote);
   typeSelect.addEventListener("change",()=>{const isRun=typeSelect.value==="Run";runOptions.hidden=!isRun;liftOptions.hidden=isRun;document.getElementById("generated-plan").hidden=true});
   let currentGenerated=null;
-  const liftMoves={
-    upper:{
-      bodyweight:["Wall or counter push-ups","Prone Y-T raises","Wall slides","Incline plank hold"],
-      dumbbells:["Dumbbell floor press","One-arm dumbbell row","Seated shoulder press","Dumbbell curls"],
-      gym:["Chest press","Seated cable row","Lat pulldown","Machine shoulder press"]
-    },
-    lower:{
-      bodyweight:["Chair squats","Glute bridges","Reverse lunges","Calf raises"],
-      dumbbells:["Goblet squats","Dumbbell Romanian deadlifts","Reverse lunges","Calf raises"],
-      gym:["Leg press","Seated hamstring curl","Leg extension","Calf raises"]
-    },
-    full:{
-      bodyweight:["Chair squats","Incline push-ups","Glute bridges","Bird dogs"],
-      dumbbells:["Goblet squats","Dumbbell floor press","One-arm dumbbell rows","Romanian deadlifts"],
-      gym:["Leg press","Chest press","Seated cable row","Hip hinge with light bar"]
-    },
-    core:{
-      bodyweight:["Dead bugs","Bird dogs","Knee side planks","Glute bridges"],
-      dumbbells:["Dead bugs","Suitcase carry","Light dumbbell marches","Bird dogs"],
-      gym:["Cable Pallof press","Dead bugs","Back extension (easy)","Suitcase carry"]
-    }
+  const moveBank={
+    upper:{bodyweight:["Wall or counter push-ups","Prone Y-T raises","Wall slides","Incline plank hold"],dumbbells:["Dumbbell floor press","One-arm dumbbell row","Seated shoulder press","Dumbbell curls","Lateral raises","Overhead triceps extensions"],gym:["Barbell or machine bench press","Chest-supported row","Overhead press","Lat pulldown","Incline dumbbell press","Cable triceps pressdown"]},
+    lower:{bodyweight:["Chair or air squats","Glute bridges","Reverse lunges","Calf raises"],dumbbells:["Goblet squats","Dumbbell Romanian deadlifts","Reverse lunges","Calf raises","Step-ups","Hip thrusts"],gym:["Back squat or leg press","Romanian deadlift","Split squat","Hamstring curl","Hip thrust","Calf raise"]},
+    full:{bodyweight:["Chair or air squats","Wall or counter push-ups","Glute bridges","Bird dogs"],dumbbells:["Goblet squats","Dumbbell floor press","One-arm dumbbell rows","Romanian deadlifts","Shoulder press","Farmer carry"],gym:["Back squat","Bench press","Deadlift variation","Barbell or cable row","Overhead press","Farmer carry"]},
+    core:{bodyweight:["Dead bugs","Bird dogs","Side plank","Glute bridges"],dumbbells:["Dead bugs","Suitcase carry","Light dumbbell marches","Side plank","Bird dogs","Pallof press"],gym:["Cable Pallof press","Dead bugs","Back extension","Suitcase carry","Side plank","Cable chop"]}
   };
+  const powerMoves=(focus,equipment)=>{
+    const bank={
+      upper:{bodyweight:["Incline push-ups","Backpack rows","Pike push-ups"],dumbbells:["Dumbbell floor press","One-arm dumbbell row","Dumbbell shoulder press"],gym:["Barbell bench press","Barbell row","Overhead press"]},
+      lower:{bodyweight:["Tempo squat to a chair","Single-leg glute bridge","Split squat"],dumbbells:["Goblet squat","Dumbbell Romanian deadlift","Split squat"],gym:["Back squat","Deadlift","Paused squat"]},
+      full:{bodyweight:["Tempo squat","Incline push-ups","Hip hinge drill"],dumbbells:["Goblet squat","Dumbbell floor press","Dumbbell Romanian deadlift"],gym:["Back squat","Bench press","Deadlift"]},
+      core:{bodyweight:["Side plank","Dead bug","Bird dog"],dumbbells:["Suitcase carry","Side plank","Dead bug"],gym:["Pallof press","Suitcase carry","Back extension"]}
+    };
+    return bank[focus][equipment];
+  };
+  const goalNames={general:"General strength",powerlifting:"Powerlifting",bodybuilding:"Bodybuilding",crossfit:"CrossFit-style conditioning"};
   const makeRun=(focus,level,minutes)=>{
-    const beginner=level==="Beginner";
-    const warm=4, cool=4, work=Math.max(8,minutes-warm-cool);
-    const titles={easy:"Easy conversational run",long:"Comfortable long run",intervals:"Gentle speed intervals",tempo:"Steady tempo session",return:"Run-walk return session"};
+    const beginner=level==="Beginner",warm=5,cool=5,work=Math.max(5,minutes-warm-cool);
+    const titles={easy:"Easy conversational run",long:"Long run",intervals:"Speed intervals",tempo:"Tempo run",return:"Run-walk return session"};
     let steps=[];
     if(focus==="intervals"){
-      const rounds=beginner?4:6, on=beginner?1:2, off=2;
-      steps=[["Warm up",warm+" min brisk walk + easy jog"],["Repeat "+rounds+" times",on+" min quicker but controlled, then "+off+" min easy walk/jog"],["Easy finish",Math.max(3,work-rounds*(on+off))+" min relaxed jog or walk"],["Cool down",cool+" min easy walk + gentle calf/hip stretches"]];
+      const rounds=beginner?4:6,on=beginner?1:2,off=2,fast=rounds*(on+off);
+      steps=[["Warm up",warm+" min brisk walk + easy jog"],["Controlled intervals",rounds+" rounds: "+on+" min quicker but controlled, then "+off+" min easy jog/walk"],["Easy finish",Math.max(0,work-fast)+" min very easy running or walking"],["Cool down",cool+" min easy walk"]];
     }else if(focus==="tempo"){
-      steps=[["Warm up",warm+" min easy walk/jog"],["Steady effort",Math.max(5,Math.round(work*.55))+" min comfortably hard; you can speak a few words"],["Recover",Math.max(3,work-Math.max(5,Math.round(work*.55)))+" min very easy"],["Cool down",cool+" min walk"]];
+      const steady=Math.max(5,Math.round(work*.35)),recover=Math.max(0,work-steady);
+      steps=[["Warm up",warm+" min easy walk/jog"],["Steady effort",steady+" min comfortably hard; speak in short phrases"],["Easy running",recover+" min relaxed"],["Cool down",cool+" min walk"]];
     }else if(focus==="long"){
-      steps=[["Warm up",warm+" min relaxed walking"],["Main run",work+" min at an easy, conversational pace; walk whenever you need"],["Cool down",cool+" min easy walking + water"]];
+      steps=[["Warm up",warm+" min relaxed walking + gentle jog"],["Main run",work+" min at an easy conversational effort; take walk breaks and sip water as needed"],["Cool down",cool+" min easy walking"]];
     }else if(focus==="return"){
       const rounds=Math.max(3,Math.floor(work/3));
       steps=[["Warm up",warm+" min brisk walk"],["Run-walk",rounds+" rounds: 1 min gentle jog + 2 min walk"],["Cool down",cool+" min easy walk"]];
     }else{
-      steps=[["Warm up",warm+" min brisk walk + easy jog"],["Easy run",work+" min at a pace where you can talk"],["Cool down",cool+" min easy walk"]];
+      steps=[["Warm up",warm+" min brisk walk + easy jog"],["Easy run",work+" min at a pace where you can comfortably talk"],["Cool down",cool+" min easy walk"]];
     }
-    return {title:titles[focus],category:"Run",duration:minutes,steps,safety:"Keep the effort comfortable, and stop if you feel pain, dizziness, or unwell. If you are new to running, choose the run-walk option."};
+    return {title:titles[focus],category:"Run",duration:minutes,steps,safety:"Build duration gradually, especially for long runs. Keep the effort comfortable, take walk breaks, and stop if you feel pain, dizzy, or unwell."};
   };
-  const makeLift=(focus,equipment,level,minutes)=>{
-    const names={upper:"Upper-body strength",lower:"Lower-body strength",full:"Full-body strength",core:"Core & stability"};
-    const beginner=level==="Beginner", sets=beginner?2:3, reps=beginner?"8–10 controlled reps":"8–12 controlled reps";
-    const moves=liftMoves[focus][equipment];
-    const steps=[["Warm up","3–5 min easy marching, arm circles, and comfortable range-of-motion"],...moves.map((move,i)=>[move,sets+" sets × "+reps+" · rest 60–90 sec"+(equipment==="bodyweight"&&focus==="upper"&&i===0?" · use a wall or counter for incline push-ups":"")]),["Cool down","3–5 min gentle breathing and comfortable stretches"]];
-    return {title:names[focus],category:"Lift",duration:minutes,steps,safety:"Choose a variation that feels controlled. Stop for sharp pain, and ask a qualified coach to check unfamiliar equipment or technique."};
+  const makeLift=(focus,goal,equipment,level,minutes)=>{
+    const beginner=level==="Beginner",body=equipment==="bodyweight",advanced=level!=="Beginner";
+    const names={upper:"Upper body",lower:"Lower body",full:"Full body",core:"Core"};
+    const moves=goal==="powerlifting"?powerMoves(focus,equipment):moveBank[focus][equipment];
+    let steps=[];
+    if(goal==="powerlifting"){
+      const main=moves[0],secondary=moves.slice(1);
+      steps.push(["Warm up + technique",Math.max(8,Math.round(minutes*.08))+" min: easy cardio, joint prep, then several light ramp-up sets. Practice crisp reps."],["Main lift · "+main,beginner?"3–4 × 5 at a light-to-moderate load; finish each set with 3–4 good reps still possible.":"4–5 × 3–5 at a challenging but controlled effort (about 2 reps left in reserve); rest 2–4 min."],["Secondary strength",secondary.slice(0,2).join(" + ")+" · "+(beginner?"3 × 6–8 each, smooth technique":"3–4 × 5–8 each, rest 2–3 min")]);
+      if(minutes>=60)steps.push(["Assistance work",moves[2]+" · "+(beginner?"2–3 × 8–10":"3 × 8–12")+"; keep it submaximal"]);
+      if(minutes>=90)steps.push(["Extra practice / recovery",Math.max(10,minutes-75)+" min for long rests between quality sets, mobility, and optional light technique practice. Do not turn this into repeated max attempts."]);
+      steps.push(["Cool down","5–10 min easy movement and comfortable mobility"]);
+    }else if(goal==="bodybuilding"){
+      const count=minutes>=90?moves.length:minutes>=45?Math.min(5,moves.length):Math.min(3,moves.length);
+      const sets=beginner?"2–3":"3–4", reps=beginner?"8–12 controlled reps":"8–15 controlled reps";
+      steps.push(["Warm up",Math.max(5,Math.round(minutes*.07))+" min easy movement + light warm-up sets"]);
+      steps.push(["Hypertrophy work",moves.slice(0,count).map((m,i)=>(i+1)+". "+m+" — "+sets+" sets × "+reps+"; rest 60–120 sec").join(" · ")]);
+      if(minutes>=60)steps.push(["Optional volume / rest",Math.max(10,minutes-Math.round(minutes*.65))+" min for longer rests and extra sets on 1–2 priority muscles. Stop sets with 1–3 good reps in reserve."]);
+      steps.push(["Cool down","5–10 min easy movement; stretching is optional"]);
+    }else if(goal==="crossfit"){
+      const scaled=beginner?"Scale to smooth, repeatable reps; use step-ups, incline push-ups, and light loads.":"Use technically solid movements and a challenging pace you can sustain; leave room to recover.";
+      steps.push(["Warm up",Math.max(8,Math.round(minutes*.08))+" min easy cardio + mobility"]);
+      steps.push(["Strength / skill",moves.slice(0,2).join(" + ")+" · "+(beginner?"3 × 5–8 easy reps":"4 × 4–6 crisp reps")+"; practice before adding load"]);
+      if(minutes>=60)steps.push(["Skill practice",Math.max(10,Math.round(minutes*.2))+" min on controlled technique (such as squat, hinge, press, or jump-rope basics); rest as needed"]);
+      steps.push(["Conditioning workout",beginner?"8–12 min easy circuit: 6 chair squats, 6 incline push-ups, 30 sec brisk walk; repeat smoothly.":"12–20 min controlled circuit: 8 squats, 8 push-ups (scale as needed), 10 light rows, 30 sec easy cardio; steady rounds, not an all-out sprint."]);
+      if(minutes>=90)steps.push(["Easy aerobic / mobility",Math.max(15,minutes-60)+" min low-intensity walk/bike and mobility. Long sessions are not extra hours of high-intensity work."]);
+      steps.push(["Cool down","5–10 min gentle walking and breathing"]);
+      steps.push(["Scale it",scaled]);
+    }else{
+      const count=minutes>=90?moves.length:minutes>=45?Math.min(5,moves.length):Math.min(4,moves.length);
+      const sets=beginner?"2–3":"3–4",reps=beginner?"8–12 controlled reps":"6–12 controlled reps";
+      steps.push(["Warm up",Math.max(5,Math.round(minutes*.08))+" min easy movement and practice reps"]);
+      steps.push(["Strength circuit",moves.slice(0,count).map((m,i)=>(i+1)+". "+m+" — "+sets+" sets × "+reps+"; rest "+(beginner?"60–90":"90–150")+" sec").join(" · ")]);
+      if(minutes>=60)steps.push(["Extra sets / technique",Math.max(10,minutes-Math.round(minutes*.7))+" min: add a set to priority movements or practice easy technique. Keep form steady; do not rush to fill time."]);
+      steps.push(["Cool down","5–10 min easy walking and comfortable mobility"]);
+    }
+    return {title:names[focus]+" · "+goalNames[goal],category:"Lift",duration:minutes,steps,safety:"Begin with a load and variation you can control. Stop for sharp pain or dizziness. Powerlifting and CrossFit-style sessions are educational templates, not a substitute for in-person coaching; avoid max attempts without qualified supervision."};
   };
   const showGenerated=plan=>{
     currentGenerated=plan;
     const box=document.getElementById("generated-plan");
-    box.innerHTML='<span class="workout-tag">'+plan.category.toUpperCase()+' · BUILT FOR YOU</span><h3>'+plan.title+'</h3><div class="plan-meta"><span>'+plan.duration+' minutes</span><span>'+document.getElementById("plan-level").value+'</span><span>'+new Intl.DateTimeFormat(undefined,{weekday:"long",month:"short",day:"numeric"}).format(new Date(planDate.value+"T12:00:00"))+'</span></div><div class="session-steps">'+plan.steps.map((step,i)=>'<div class="session-step"><strong>'+String(i+1).padStart(2,"0")+' · '+step[0]+'</strong><span>'+step[1]+'</span></div>').join("")+'</div><p class="plan-safety">'+plan.safety+'</p><button class="start-button" id="save-generated" type="button"><span class="play-icon">＋</span><span>Save this session to calendar</span><span class="button-arrow">↗</span></button>';
+    box.innerHTML='<span class="workout-tag">'+plan.category.toUpperCase()+' · BUILT FOR YOU</span><h3>'+plan.title+'</h3><div class="plan-meta"><span>'+plan.duration+' minutes</span><span>'+levelSelect.value+'</span><span>'+new Intl.DateTimeFormat(undefined,{weekday:"long",month:"short",day:"numeric"}).format(new Date(planDate.value+"T12:00:00"))+'</span></div><div class="session-steps">'+plan.steps.map((step,i)=>'<div class="session-step"><strong>'+String(i+1).padStart(2,"0")+' · '+step[0]+'</strong><span>'+step[1]+'</span></div>').join("")+'</div><p class="plan-safety">'+plan.safety+'</p><button class="start-button" id="save-generated" type="button"><span class="play-icon">＋</span><span>Save this session to calendar</span><span class="button-arrow">↗</span></button>';
     box.hidden=false;
-    document.getElementById("form-note").textContent="Your session is ready. Save it to add it to this week.";
+    document.getElementById("form-note").textContent="Your session is ready. Save it to add it to your week.";
     document.getElementById("save-generated").addEventListener("click",()=>{
       if(!currentGenerated||!planDate.value)return;
       const plan={type:currentGenerated.category,name:currentGenerated.title,duration:currentGenerated.duration,date:planDate.value,steps:currentGenerated.steps};
@@ -157,10 +175,10 @@
     });
   };
   document.getElementById("generate-plan").addEventListener("click",()=>{
-    const type=typeSelect.value,level=document.getElementById("plan-level").value;
+    const type=typeSelect.value,level=levelSelect.value;
     const plan=type==="Run"
-      ?makeRun(document.getElementById("run-focus").value,level,Number(document.getElementById("run-duration").value))
-      :makeLift(document.getElementById("lift-focus").value,document.getElementById("lift-equipment").value,level,Number(document.getElementById("lift-duration").value));
+      ?makeRun(runFocus.value,level,Number(runDuration.value))
+      :makeLift(document.getElementById("lift-focus").value,document.getElementById("lift-goal").value,document.getElementById("lift-equipment").value,level,Number(document.getElementById("lift-duration").value));
     showGenerated(plan);
   });
   renderCalendar();drawWorkouts();
