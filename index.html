@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173d32">
+  <meta name="description" content="A calmer way to build a running habit.">
+  <title>Run Better — Find your pace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="Run Better home">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 10 7 15 9 21c1.2 3.7 4 6 7 8 3-2 5.8-4.3 7-8 2-6-0-11-7-18Z"/><path d="M16 27V13m0 8 5-5m-5 9-4-4"/></svg></span>
+        <span>run better<span class="brand-period">.</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#home"><span class="nav-icon">◉</span> Overview</a>
+        <a class="nav-link" href="#training"><span class="nav-icon">↗</span> Training</a>
+        <a class="nav-link" href="#activity"><span class="nav-icon">▤</span> Activity</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="week-card">
+          <div class="week-card-top"><span>This week</span><span class="leaf-icon">✳</span></div>
+          <strong><span id="week-distance">8.4</span><small> km</small></strong>
+          <div class="progress-track"><span style="width:56%"></span></div>
+          <p>56% of your 15 km goal</p>
+        </div>
+        <button class="profile-button" type="button">
+          <span class="avatar">J</span><span class="profile-copy"><strong>Jamie Parker</strong><small>Easy does it</small></span><span class="profile-more">···</span>
+        </button>
+      </div>
+    </aside>
+
+    <main id="home">
+      <header class="topbar">
+        <div class="mobile-brand">run better<span class="brand-period">.</span></div>
+        <div class="today-label"><span class="status-dot"></span> Monday, October 28</div>
+        <button class="icon-button" aria-label="Notifications" type="button">♧<span class="notification-dot"></span></button>
+      </header>
+
+      <section class="welcome">
+        <div>
+          <p class="eyebrow">YOUR RUNNING, YOUR RHYTHM</p>
+          <h1>A little better,<br><em>every day.</em></h1>
+          <p class="welcome-subtitle">The trail is yours. Keep showing up and let the miles add up.</p>
+          <button class="start-button" id="start-run" type="button"><span class="play-icon">▶</span><span id="start-label">Start an easy run</span><span class="button-arrow">↗</span></button>
+        </div>
+        <div class="hero-art" aria-label="Illustration of a forest trail">
+          <div class="sun"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div>
+          <div class="tree tree-one"><i></i></div><div class="tree tree-two"><i></i></div><div class="tree tree-three"><i></i></div>
+          <div class="trail"></div>
+          <div class="hero-note"><span class="note-icon">☼</span><span><strong>Take it easy</strong><small>There's no rush out here.</small></span></div>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Your running stats">
+        <article class="stat-card"><div class="stat-heading">Distance this week <span class="stat-icon sage">↗</span></div><div class="stat-value">8.4 <small>km</small></div><div class="stat-foot"><span class="positive">+12%</span> from last week</div></article>
+        <article class="stat-card"><div class="stat-heading">Runs completed <span class="stat-icon sand">⌁</span></div><div class="stat-value">3 <small>runs</small></div><div class="stat-foot">You’re finding your rhythm</div></article>
+        <article class="stat-card"><div class="stat-heading">Average pace <span class="stat-icon pale">◷</span></div><div class="stat-value">6:42 <small>/km</small></div><div class="stat-foot">A comfortable conversation pace</div></article>
+      </section>
+
+      <section class="lower-grid">
+        <article class="panel weekly-panel" id="training">
+          <div class="panel-header"><div><p class="eyebrow">STEADY PROGRESS</p><h2>Your week</h2></div><button class="text-button" type="button">This week <span>⌄</span></button></div>
+          <div class="chart" role="img" aria-label="Weekly distance chart: Monday 2.4 km, Tuesday 0 km, Wednesday 3.1 km, Thursday 0 km, Friday 2.9 km, weekend 0 km">
+            <div class="chart-grid"><span>4 km</span><span>3 km</span><span>2 km</span><span>1 km</span><span>0 km</span></div>
+            <div class="bars">
+              <div class="bar-column"><div class="bar active-bar" style="height:61%"><span>2.4</span></div><small>Mon</small></div>
+              <div class="bar-column"><div class="bar empty-bar" style="height:4%"></div><small>Tue</small></div>
+              <div class="bar-column"><div class="bar moss-bar" style="height:78%"><span>3.1</span></div><small>Wed</small></div>
+              <div class="bar-column"><div class="bar empty-bar" style="height:4%"></div><small>Thu</small></div>
+              <div class="bar-column"><div class="bar moss-bar" style="height:72%"><span>2.9</span></div><small>Fri</small></div>
+              <div class="bar-column"><div class="bar empty-bar" style="height:4%"></div><small>Sat</small></div>
+              <div class="bar-column"><div class="bar empty-bar" style="height:4%"></div><small>Sun</small></div>
+            </div>
+          </div>
+          <div class="chart-footer"><span><i class="legend-dot"></i> Distance</span><span>Goal: <strong>15 km</strong></span></div>
+        </article>
+        <article class="panel activity-panel" id="activity">
+          <div class="panel-header"><div><p class="eyebrow">OUT THE DOOR</p><h2>Recent runs</h2></div><a class="text-button" href="#activity">See all <span>↗</span></a></div>
+          <div class="activity-list">
+            <div class="activity-row"><span class="activity-symbol">↗</span><div class="activity-name"><strong>Park loop</strong><small>Friday · 8:14 AM</small></div><div class="activity-metric"><strong>2.9 km</strong><small>6:38 /km</small></div></div>
+            <div class="activity-row"><span class="activity-symbol">↗</span><div class="activity-name"><strong>River path</strong><small>Wednesday · 6:42 PM</small></div><div class="activity-metric"><strong>3.1 km</strong><small>6:51 /km</small></div></div>
+            <div class="activity-row"><span class="activity-symbol">↗</span><div class="activity-name"><strong>Neighborhood jog</strong><small>Monday · 7:30 AM</small></div><div class="activity-metric"><strong>2.4 km</strong><small>6:37 /km</small></div></div>
+          </div>
+        </article>
+      </section>
+      <footer>Made for the long run <span>✳</span></footer>
+    </main>
+  </div>
+  <div class="run-modal" id="run-modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="run-title">
+      <button class="modal-close" id="close-run" aria-label="Close" type="button">×</button>
+      <span class="modal-leaf">✳</span><p class="eyebrow">ONE STEP AT A TIME</p><h2 id="run-title">Ready when you are.</h2>
+      <p class="modal-copy">Take a breath, find a comfortable pace, and enjoy the path ahead.</p>
+      <div class="run-timer" id="run-timer">00:00</div>
+      <div class="run-actions"><button class="start-button" id="timer-toggle" type="button"><span class="play-icon">▶</span><span>Begin run</span></button><button class="finish-button" id="finish-run" type="button">Finish</button></div>
+      <p class="modal-hint" id="run-hint">Your run timer is ready.</p>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
