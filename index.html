@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#173d32">
-  <meta name="description" content="A simple, welcoming place to find movement that feels good.">
+  <meta name="description" content="A simple, welcoming place to find movement, build a routine, and feel good.">
   <title>Run Better — Move your way</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,85 +14,90 @@
 <body>
   <div class="app-shell">
     <aside class="sidebar">
-      <a class="brand" href="#home" aria-label="Run Better home">
-        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 10 7 15 9 21c1.2 3.7 4 6 7 8 3-2 5.8-4.3 7-8 2-6-0-11-7-18Z"/><path d="M16 27V13m0 8 5-5m-5 9-4-4"/></svg></span>
-        <span>run better<span class="brand-period">.</span></span>
-      </a>
+      <a class="brand" href="#home" aria-label="Run Better home"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 10 7 15 9 21c1.2 3.7 4 6 7 8 3-2 5.8-4.3 7-8 2-6-0-11-7-18Z"/><path d="M16 27V13m0 8 5-5m-5 9-4-4"/></svg></span><span>run better<span class="brand-period">.</span></span></a>
       <nav class="main-nav" aria-label="Main navigation">
         <a class="nav-link active" href="#home"><span>⌂</span> Home</a>
-        <a class="nav-link" href="#discover"><span>✳</span> Discover</a>
-        <a class="nav-link" href="#progress"><span>◷</span> Progress</a>
+        <a class="nav-link" href="#build"><span>＋</span> Build a workout</a>
+        <a class="nav-link" href="#run"><span>↗</span> Run</a>
+        <a class="nav-link" href="#lift"><span>⟷</span> Lift</a>
+        <a class="nav-link" href="#nutrition"><span>◉</span> Nutrition</a>
+        <a class="nav-link" href="#sleep"><span>☾</span> Sleep</a>
+        <a class="nav-link" href="#calendar"><span>▦</span> Calendar</a>
       </nav>
       <div class="sidebar-bottom">
-        <div class="week-card">
-          <div class="week-card-top"><span>Your weekly goal</span><span>✳</span></div>
-          <strong>3 <small>of 5 days</small></strong>
-          <div class="progress-track"><span style="width:60%"></span></div>
-          <p>You’re building a lovely rhythm.</p>
-        </div>
+        <div class="week-card"><div class="week-card-top"><span>Your weekly goal</span><span>✳</span></div><strong>3 <small>of 5 days</small></strong><div class="progress-track"><span style="width:60%"></span></div><p>You’re building a lovely rhythm.</p></div>
         <button class="profile-button" type="button"><span class="avatar">J</span><span class="profile-copy"><strong>Jamie Parker</strong><small>Growing at your pace</small></span><span class="profile-more">···</span></button>
       </div>
     </aside>
 
     <main id="home">
-      <header class="topbar">
-        <div class="mobile-brand">run better<span class="brand-period">.</span></div>
-        <div class="today-label"><span class="status-dot"></span><span id="today-date">Today</span></div>
-        <button class="icon-button" aria-label="Notifications" type="button">♧<span class="notification-dot"></span></button>
-      </header>
+      <header class="topbar"><div class="mobile-brand">run better<span class="brand-period">.</span></div><div class="today-label"><span class="status-dot"></span><span id="today-date">Today</span></div><button class="icon-button" aria-label="Notifications" type="button">♧<span class="notification-dot"></span></button></header>
 
       <section class="welcome">
-        <div class="welcome-copy">
-          <p class="eyebrow">A LITTLE SPACE FOR YOU</p>
-          <h1>Hi Jamie,<br><em>how do you want to move?</em></h1>
-          <p class="welcome-subtitle">A walk, a lift, a run. Find something that feels good today.</p>
-          <a class="start-button" href="#discover"><span class="play-icon">✳</span><span>Find your next thing</span><span class="button-arrow">↗</span></a>
-        </div>
-        <div class="hero-art" role="img" aria-label="A custom illustration of a winding trail through green hills">
-          <div class="sun"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div>
-          <div class="tree tree-one"><i></i></div><div class="tree tree-two"><i></i></div><div class="tree tree-three"><i></i></div>
-          <div class="trail"></div>
-          <div class="hero-note"><span class="note-icon">☼</span><span><strong>Your pace is the right pace</strong><small>Every little bit counts.</small></span></div>
-        </div>
+        <div class="welcome-copy"><p class="eyebrow">A LITTLE SPACE FOR YOU</p><h1>Hi Jamie,<br><em>how do you want to move?</em></h1><p class="welcome-subtitle">A walk, a lift, a run. Find something that feels good today.</p><a class="start-button" href="#build"><span class="play-icon">✳</span><span>Build your own workout</span><span class="button-arrow">↗</span></a></div>
+        <div class="hero-art" role="img" aria-label="A custom illustration of a winding trail through green hills"><div class="sun"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div><div class="tree tree-one"><i></i></div><div class="tree tree-two"><i></i></div><div class="tree tree-three"><i></i></div><div class="trail"></div><div class="hero-note"><span class="note-icon">☼</span><span><strong>Your pace is the right pace</strong><small>Every little bit counts.</small></span></div></div>
       </section>
 
-      <section class="progress-strip" id="progress" aria-label="Your weekly progress">
+      <section class="progress-strip" aria-label="Your weekly progress">
         <div class="progress-intro"><p class="eyebrow">SHOWING UP IS THE WIN</p><h2>Your week, so far</h2><p>Three days of making time for yourself.</p></div>
-        <div class="week-days" aria-label="Weekly activity">
-          <div class="day done"><span>M</span><i>✓</i></div><div class="day"><span>T</span><i>·</i></div><div class="day done"><span>W</span><i>✓</i></div><div class="day"><span>T</span><i>·</i></div><div class="day done"><span>F</span><i>✓</i></div><div class="day"><span>S</span><i>·</i></div><div class="day"><span>S</span><i>·</i></div>
-        </div>
+        <div class="week-days" aria-label="Weekly activity"><div class="day done"><span>M</span><i>✓</i></div><div class="day"><span>T</span><i>·</i></div><div class="day done"><span>W</span><i>✓</i></div><div class="day"><span>T</span><i>·</i></div><div class="day done"><span>F</span><i>✓</i></div><div class="day"><span>S</span><i>·</i></div><div class="day"><span>S</span><i>·</i></div></div>
         <div class="streak"><span class="streak-icon">✹</span><span><strong>3 / 5</strong><small>days this week</small></span></div>
       </section>
 
-      <section class="discover-section" id="discover">
+      <section class="discover-section" id="explore">
         <div class="section-heading"><div><p class="eyebrow">PICK WHAT FEELS GOOD</p><h2>Explore movement</h2></div><label class="search-box"><span aria-hidden="true">⌕</span><input id="activity-search" type="search" placeholder="Search activities" aria-label="Search activities"></label></div>
-        <div class="activity-tiles" aria-label="Activity types">
-          <button class="activity-tile selected" data-filter="all" type="button"><span class="tile-icon run-icon">↗</span><strong>All</strong></button>
-          <button class="activity-tile" data-filter="Running" type="button"><span class="tile-icon trail-icon">⌁</span><strong>Running</strong></button>
-          <button class="activity-tile" data-filter="Strength" type="button"><span class="tile-icon strength-icon">⟷</span><strong>Strength</strong></button>
-          <button class="activity-tile" data-filter="Cycling" type="button"><span class="tile-icon cycle-icon">◉</span><strong>Cycling</strong></button>
-          <button class="activity-tile" data-filter="Mobility" type="button"><span class="tile-icon mobility-icon">✳</span><strong>Mobility</strong></button>
-        </div>
+        <div class="activity-tiles" aria-label="Activity types"><button class="activity-tile selected" data-filter="all" type="button"><span class="tile-icon run-icon">↗</span><strong>All</strong></button><button class="activity-tile" data-filter="Running" type="button"><span class="tile-icon trail-icon">⌁</span><strong>Running</strong></button><button class="activity-tile" data-filter="Strength" type="button"><span class="tile-icon strength-icon">⟷</span><strong>Strength</strong></button><button class="activity-tile" data-filter="Cycling" type="button"><span class="tile-icon cycle-icon">◉</span><strong>Cycling</strong></button><button class="activity-tile" data-filter="Mobility" type="button"><span class="tile-icon mobility-icon">✳</span><strong>Mobility</strong></button></div>
         <div class="section-heading workout-heading"><div><p class="eyebrow">A GOOD PLACE TO BEGIN</p><h2>Made for your day</h2></div><div class="level-switch" role="group" aria-label="Choose your experience level"><button class="level-button active" data-level="Beginner" type="button">Beginner</button><button class="level-button" data-level="Experienced" type="button">Experienced</button></div></div>
-        <div class="workout-grid" id="workout-list" aria-live="polite"></div>
-        <p class="empty-state" id="empty-state" hidden>No matches yet. Try another activity or search.</p>
+        <div class="workout-grid" id="workout-list" aria-live="polite"></div><p class="empty-state" id="empty-state" hidden>No matches yet. Try another activity or search.</p>
+      </section>
+
+      <section class="content-section" id="build">
+        <div class="section-heading"><div><p class="eyebrow">MAKE IT YOURS</p><h2>Build your own workout</h2></div><span class="section-badge">Your plan, your pace</span></div>
+        <p class="section-intro">Choose an activity, give it a name, and save it to your calendar. Start with a run or lift, or make a session for football, lacrosse, cycling, or something else.</p>
+        <form class="builder-card" id="builder-form">
+          <label>What are you doing?<select id="plan-type"><option>Run</option><option>Lift</option><option>Football</option><option>Lacrosse</option><option>Cycling</option><option>Mobility</option><option>Something else</option></select></label>
+          <label>Give it a name<input id="plan-name" type="text" maxlength="48" placeholder="Easy neighborhood run" required></label>
+          <label>How long?<select id="plan-duration"><option value="15">15 minutes</option><option value="20" selected>20 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">60 minutes</option></select></label>
+          <label>Pick a day<input id="plan-date" type="date" required></label>
+          <button class="start-button builder-submit" type="submit"><span class="play-icon">＋</span><span>Add to calendar</span><span class="button-arrow">↗</span></button>
+          <p class="form-note" id="form-note" aria-live="polite">Plans are saved in this browser on this device.</p>
+        </form>
+      </section>
+
+      <section class="content-section" id="run">
+        <div class="section-heading"><div><p class="eyebrow">RUN WITH A LITTLE HELP</p><h2>Find your running rhythm</h2></div><span class="section-badge">Coach-led tips</span></div>
+        <div class="feature-layout"><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/HfpW4TlXiQ8" title="Running technique with Coach Lynn and Olympian Natasha Wodak" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="feature-copy"><span class="workout-tag">RUNNING COACH · TECHNIQUE</span><h3>Learn from a coach and an Olympian</h3><p>Coach Lynn looks at running form with Canadian Olympian Natasha Wodak. Start relaxed, warm up gently, and build your distance gradually.</p><a class="resource-link" href="https://www.coachlynn.org/training-tip-videos" target="_blank" rel="noopener noreferrer">More tips from Coach Lynn <span>↗</span></a><button class="start-button compact-start" type="button" data-start="Easy neighborhood run" data-category="Run"><span class="play-icon">▶</span><span>Start a run</span></button></div></div>
+      </section>
+
+      <section class="content-section" id="lift">
+        <div class="section-heading"><div><p class="eyebrow">LIFT WITH GOOD FORM</p><h2>Build strength, one rep at a time</h2></div><span class="section-badge">ACE exercise library</span></div>
+        <div class="feature-layout"><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/Vdcy7VrRluA" title="Plank School with ACE fitness professional Jonathan Ross" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="feature-copy"><span class="workout-tag">ACE FITNESS · CORE</span><h3>Make the basics feel simple</h3><p>ACE's exercise library shares technique videos and beginner options. Start with a movement you can do comfortably and focus on control.</p><a class="resource-link" href="https://www.acefitness.org/resources/everyone/exercise-library/video/" target="_blank" rel="noopener noreferrer">Browse ACE's video library <span>↗</span></a><button class="start-button compact-start" type="button" data-start="Full body strength" data-category="Lift"><span class="play-icon">▶</span><span>Start a lift</span></button></div></div>
+      </section>
+
+      <section class="content-section" id="nutrition">
+        <div class="section-heading"><div><p class="eyebrow">FUEL YOUR DAY</p><h2>Nutrition without the noise</h2></div><span class="section-badge">Registered dietitian</span></div>
+        <div class="feature-layout"><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/W458a21H0zo" title="How to create a healthy plate, from a registered dietitian" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="feature-copy"><span class="workout-tag">DIETITIAN SUCCESS CENTER</span><h3>Make meal planning feel doable</h3><p>A registered dietitian walks through a flexible balanced-plate approach, meal and snack ideas, and ways to make it work beyond a plate.</p><ul class="tip-list"><li>Pick a couple of meals to plan ahead.</li><li>Keep the plan flexible and use foods you enjoy.</li><li>Personal nutrition needs can vary.</li></ul><a class="resource-link" href="https://www.youtube.com/watch?v=W458a21H0zo" target="_blank" rel="noopener noreferrer">Watch on YouTube <span>↗</span></a></div></div>
+        <p class="health-note">General education only. For personal nutrition advice, talk with a registered dietitian or your healthcare professional.</p>
+      </section>
+
+      <section class="content-section" id="sleep">
+        <div class="section-heading"><div><p class="eyebrow">WIND DOWN GENTLY</p><h2>Make room for better rest</h2></div><span class="section-badge">NHS guided video</span></div>
+        <div class="sleep-card"><div class="sleep-art" aria-hidden="true"><span class="moon">☾</span><span class="star star-a">✦</span><span class="star star-b">·</span><span class="sleep-hill hill-a"></span><span class="sleep-hill hill-b"></span></div><div class="feature-copy"><span class="workout-tag">SLEEP EXERCISE · 30 MIN</span><h3>A calmer end to the day</h3><p>Follow the NHS “Beditation” video: a gentle guided meditation with relaxing movements to help you unwind before bed.</p><a class="resource-link" href="https://www.nhs.uk/live-well/sleep-and-tiredness/bedtime-meditation/" target="_blank" rel="noopener noreferrer">Watch the NHS bedtime meditation <span>↗</span></a><p class="health-note">If sleep problems are ongoing or affecting your day, a healthcare professional can help.</p></div></div>
+      </section>
+
+      <section class="content-section calendar-section" id="calendar">
+        <div class="section-heading"><div><p class="eyebrow">A LITTLE PLAN GOES A LONG WAY</p><h2>Your calendar</h2></div><a class="text-button" href="#build">Add a workout <span>＋</span></a></div>
+        <p class="section-intro">Your week at a glance. Choose a day that works for you; plans you add stay on this device.</p>
+        <div class="calendar-grid" id="calendar-grid" aria-live="polite"></div>
       </section>
 
       <footer>Made for the long run <span>✳</span></footer>
     </main>
   </div>
-  <nav class="mobile-nav" aria-label="Bottom navigation"><a class="active" href="#home"><span>⌂</span>Home</a><a href="#discover"><span>✳</span>Explore</a><a href="#progress"><span>◷</span>Progress</a></nav>
 
-  <div class="run-modal" id="run-modal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="run-title">
-      <button class="modal-close" id="close-run" aria-label="Close" type="button">×</button>
-      <span class="modal-leaf">✳</span><p class="eyebrow" id="modal-category">A LITTLE TIME FOR YOU</p><h2 id="run-title">Ready when you are.</h2>
-      <p class="modal-copy">Take a breath, find a comfortable pace, and enjoy the moment.</p>
-      <div class="run-timer" id="run-timer">00:00</div>
-      <div class="run-actions"><button class="start-button" id="timer-toggle" type="button"><span class="play-icon">▶</span><span>Begin</span></button><button class="finish-button" id="finish-run" type="button">Finish</button></div>
-      <p class="modal-hint" id="run-hint">Your timer is ready.</p>
-    </div>
-  </div>
+  <nav class="mobile-nav" aria-label="Bottom navigation"><a class="active" href="#home"><span>⌂</span>Home</a><a href="#build"><span>＋</span>Build</a><a href="#explore"><span>✳</span>Explore</a><a href="#calendar"><span>▦</span>Calendar</a></nav>
+
+  <div class="run-modal" id="run-modal" aria-hidden="true"><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="run-title"><button class="modal-close" id="close-run" aria-label="Close" type="button">×</button><span class="modal-leaf">✳</span><p class="eyebrow" id="modal-category">A LITTLE TIME FOR YOU</p><h2 id="run-title">Ready when you are.</h2><p class="modal-copy">Take a breath, find a comfortable pace, and enjoy the moment.</p><div class="run-timer" id="run-timer">00:00</div><div class="run-actions"><button class="start-button" id="timer-toggle" type="button"><span class="play-icon">▶</span><span>Begin</span></button><button class="finish-button" id="finish-run" type="button">Finish</button></div><p class="modal-hint" id="run-hint">Your timer is ready.</p></div></div>
   <script src="app.js"></script>
 </body>
 </html>
