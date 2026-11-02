@@ -85,11 +85,14 @@
   const planDate=document.getElementById("plan-date"), today=new Date();
   planDate.value=fmtDate(today);planDate.min=fmtDate(today);
   const typeSelect=document.getElementById("plan-type"), runOptions=document.getElementById("run-options"), liftOptions=document.getElementById("lift-options");
+  const runFocus=document.getElementById("run-focus"), runDuration=document.getElementById("run-duration");
+  const setRunDurations=()=>{const choices=runFocus.value==="long"?[["30","30 minutes"],["45","45 minutes"],["60","60 minutes"],["75","75 minutes"],["90","90 minutes"]]:runFocus.value==="return"?[["15","15 minutes"],["20","20 minutes"],["25","25 minutes"],["30","30 minutes"]]:[["20","20 minutes"],["30","30 minutes"],["45","45 minutes"],["60","60 minutes"]];const previous=runDuration.value;runDuration.innerHTML=choices.map(([value,label])=>`<option value="${value}">${label}</option>`).join("");runDuration.value=choices.some(([value])=>value===previous)?previous:(runFocus.value==="long"?"45":choices[0][0])};
+  runFocus.addEventListener("change",setRunDurations);
   typeSelect.addEventListener("change",()=>{const isRun=typeSelect.value==="Run";runOptions.hidden=!isRun;liftOptions.hidden=isRun;document.getElementById("generated-plan").hidden=true});
   let currentGenerated=null;
   const liftMoves={
     upper:{
-      bodyweight:["Incline push-ups","Pike push-ups","Chair triceps dips","Prone Y-T raises"],
+      bodyweight:["Wall or counter push-ups","Prone Y-T raises","Wall slides","Incline plank hold"],
       dumbbells:["Dumbbell floor press","One-arm dumbbell row","Seated shoulder press","Dumbbell curls"],
       gym:["Chest press","Seated cable row","Lat pulldown","Machine shoulder press"]
     },
