@@ -39,13 +39,13 @@
       const section=document.createElement("article");section.className="calendar-day"+(key===fmtDate(new Date())?" today":"");
       const label=document.createElement("div");label.className="calendar-label";label.innerHTML="<span>"+weekday.format(day)+"</span><strong>"+daynum.format(day)+"</strong>";
       const events=document.createElement("div");events.className="calendar-events";
-      plans.filter(plan=>plan.date===key).forEach(plan=>{const event=document.createElement("div");event.className="calendar-event "+(plan.type.toLowerCase()==="lift"?"lift":plan.type.toLowerCase()==="run"?"run":"");event.textContent=plan.name;const time=document.createElement("small");time.textContent=plan.type+" · "+plan.duration+" min";event.appendChild(time);events.appendChild(event)});
+      plans.filter(plan=>plan.date===key).forEach(plan=>{const event=document.createElement("div");event.className="calendar-event "+(plan.type.toLowerCase()==="lift"?"lift":plan.type.toLowerCase()==="run"?"run":plan.type.toLowerCase()==="cycling"?"cycle":"");event.textContent=plan.name;const time=document.createElement("small");time.textContent=plan.type+" · "+plan.duration+" min";event.appendChild(time);events.appendChild(event)});
       if(!events.children.length){const none=document.createElement("div");none.className="empty-day";none.textContent="·";events.appendChild(none)}
       section.append(label,events);grid.appendChild(section);
     }
   };
   const builderForm=document.getElementById("builder-form");
-  builderForm.innerHTML="\n    <div class=\"builder-fields\">\n      <label>What do you want to build?<select id=\"plan-type\"><option value=\"Run\">Run</option><option value=\"Lift\">Lift</option></select></label>\n      <label>Your experience<select id=\"plan-level\"><option value=\"Beginner\">Beginner</option><option value=\"Experienced\">Experienced / advanced</option></select></label>\n      <div class=\"builder-choice\" id=\"run-options\">\n        <label>What kind of run?<select id=\"run-focus\"><option value=\"easy\">Easy run</option><option value=\"long\">Long run</option><option value=\"intervals\">Speed intervals</option><option value=\"tempo\">Tempo run</option><option value=\"return\">Getting back into running</option></select></label>\n        <label>How long?<select id=\"run-duration\"></select></label>\n      </div>\n      <div class=\"builder-choice\" id=\"lift-options\" hidden>\n<label>Choose your lifting style<select id=\"lift-goal\"><option value=\"powerlifting\">Powerlifting</option><option value=\"bodybuilding\">Bodybuilding</option><option value=\"crossfit\">CrossFit</option><option value=\"recreational\">Recreational</option></select></label>\n        <label>What do you want to work on?<select id=\"lift-focus\"><option value=\"full\">Full body</option><option value=\"upper\">Upper body</option><option value=\"lower\">Lower body</option><option value=\"core\">Core</option></select></label>\n        <label>What equipment do you have?<select id=\"lift-equipment\"><option value=\"bodyweight\">No equipment</option><option value=\"dumbbells\">Dumbbells</option><option value=\"gym\">Full gym / barbell</option></select></label>\n        <label>How long?<select id=\"lift-duration\"><option value=\"20\">20 minutes</option><option value=\"30\">30 minutes</option><option value=\"45\">45 minutes</option><option value=\"60\">1 hour</option><option value=\"75\">1 hour 15 minutes</option><option value=\"90\">1 hour 30 minutes</option><option value=\"120\">2 hours</option><option value=\"150\">2 hours 30 minutes</option><option value=\"180\">3 hours</option></select></label>\n      </div>\n      <p class=\"builder-level-note\" id=\"builder-level-note\">Beginner sessions teach the basics with lighter volume and simple progressions.</p>\n      <label>Pick a day<input id=\"plan-date\" type=\"date\" required></label>\n      <button class=\"start-button builder-submit\" id=\"generate-plan\" type=\"button\"><span class=\"play-icon\">✳</span><span>Build my session</span><span class=\"button-arrow\">↗</span></button>\n      <p class=\"form-note\" id=\"form-note\" aria-live=\"polite\">Choose a goal and get a session built around your experience, time, and equipment.</p>\n    </div>\n    <div id=\"generated-plan\" class=\"generated-plan\" hidden aria-live=\"polite\"></div>";
+  builderForm.innerHTML="\n    <div class=\"builder-fields\">\n      <label>What do you want to build?<select id=\"plan-type\"><option value=\"Run\">Run</option><option value=\"Lift\">Lift</option><option value=\"Cycling\">Cycling</option></select></label>\n      <label>Your experience<select id=\"plan-level\"><option value=\"Beginner\">Beginner</option><option value=\"Experienced\">Experienced / advanced</option></select></label>\n      <div class=\"builder-choice\" id=\"run-options\">\n        <label>What kind of run?<select id=\"run-focus\"><option value=\"easy\">Easy run</option><option value=\"long\">Long run</option><option value=\"intervals\">Speed intervals</option><option value=\"tempo\">Tempo run</option><option value=\"return\">Getting back into running</option></select></label>\n        <label>How long?<select id=\"run-duration\"></select></label>\n      </div>\n      <div class=\"builder-choice\" id=\"lift-options\" hidden>\n        <label>Choose your lifting style<select id=\"lift-goal\"><option value=\"powerlifting\">Powerlifting</option><option value=\"bodybuilding\">Bodybuilding</option><option value=\"crossfit\">CrossFit</option><option value=\"recreational\">Recreational</option></select></label>\n        <label>What do you want to work on?<select id=\"lift-focus\"><option value=\"full\">Full body</option><option value=\"upper\">Upper body</option><option value=\"lower\">Lower body</option><option value=\"core\">Core</option></select></label>\n        <label>What equipment do you have?<select id=\"lift-equipment\"><option value=\"bodyweight\">No equipment</option><option value=\"dumbbells\">Dumbbells</option><option value=\"gym\">Full gym / barbell</option></select></label>\n        <label>How long?<select id=\"lift-duration\"><option value=\"20\">20 minutes</option><option value=\"30\">30 minutes</option><option value=\"45\">45 minutes</option><option value=\"60\">1 hour</option><option value=\"75\">1 hour 15 minutes</option><option value=\"90\">1 hour 30 minutes</option><option value=\"120\">2 hours</option><option value=\"150\">2 hours 30 minutes</option><option value=\"180\">3 hours</option></select></label>\n      </div>\n      <div class=\"builder-choice\" id=\"cycle-options\" hidden>\n        <label>What kind of ride?<select id=\"cycle-focus\"><option value=\"easy\">Easy ride</option><option value=\"endurance\">Endurance ride</option><option value=\"intervals\">Intervals</option><option value=\"hills\">Hill repeats</option></select></label>\n        <label>How long?<select id=\"cycle-duration\"><option value=\"20\">20 minutes</option><option value=\"30\">30 minutes</option><option value=\"45\">45 minutes</option><option value=\"60\">1 hour</option><option value=\"75\">1 hour 15 minutes</option><option value=\"90\">1 hour 30 minutes</option><option value=\"120\">2 hours</option><option value=\"150\">2 hours 30 minutes</option><option value=\"180\">3 hours</option></select></label>\n      </div>\n      <p class=\"builder-level-note\" id=\"builder-level-note\">Beginner sessions teach the basics with lighter volume and simple progressions.</p>\n      <label>Pick a day<input id=\"plan-date\" type=\"date\" required></label>\n      <button class=\"start-button builder-submit\" id=\"generate-plan\" type=\"button\"><span class=\"play-icon\">✳</span><span>Build my session</span><span class=\"button-arrow\">↗</span></button>\n      <p class=\"form-note\" id=\"form-note\" aria-live=\"polite\">Choose a goal and get a session built around your experience, time, and equipment.</p>\n    </div>\n    <div id=\"generated-plan\" class=\"generated-plan\" hidden aria-live=\"polite\"></div>"
   const style=document.createElement("style");
   style.textContent=`
     .builder-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
@@ -63,12 +63,13 @@
     .session-step strong{display:block;color:#365644;font-size:10px;margin-bottom:4px}
     .session-step span{font-size:9px;color:#7e8980;line-height:1.5}
     .plan-safety{font-size:9px!important;color:#899389!important}
+    .calendar-event.cycle{background:#e8e9f4;color:#656893}
     @media(max-width:760px){.builder-fields{gap:10px}.session-steps{grid-template-columns:1fr}}
   `;
   document.head.appendChild(style);
   const planDate=document.getElementById("plan-date"), today=new Date();
   planDate.value=fmtDate(today);planDate.min=fmtDate(today);
-  const typeSelect=document.getElementById("plan-type"), runOptions=document.getElementById("run-options"), liftOptions=document.getElementById("lift-options");
+  const typeSelect=document.getElementById("plan-type"), runOptions=document.getElementById("run-options"), liftOptions=document.getElementById("lift-options"), cycleOptions=document.getElementById("cycle-options");
   const runFocus=document.getElementById("run-focus"), runDuration=document.getElementById("run-duration");
   const runChoices={
     long:[[30,"30 minutes"],[45,"45 minutes"],[60,"1 hour"],[75,"1 hour 15 minutes"],[90,"1 hour 30 minutes"],[105,"1 hour 45 minutes"],[120,"2 hours"],[150,"2 hours 30 minutes"],[180,"3 hours"]],
@@ -82,7 +83,7 @@
   const levelSelect=document.getElementById("plan-level"), levelNote=document.getElementById("builder-level-note");
   const updateLevelNote=()=>{levelNote.textContent=levelSelect.value==="Beginner"?"Beginner: simpler movements, lighter volume, technique practice, and clear rest.":"Experienced / advanced: heavier or more technical variations, more working sets, and goal-specific programming. Use loads you can control.";};
   levelSelect.addEventListener("change",updateLevelNote);
-  typeSelect.addEventListener("change",()=>{const isRun=typeSelect.value==="Run";runOptions.hidden=!isRun;liftOptions.hidden=isRun;document.getElementById("generated-plan").hidden=true});
+  typeSelect.addEventListener("change",()=>{const isRun=typeSelect.value==="Run",isLift=typeSelect.value==="Lift";runOptions.hidden=!isRun;liftOptions.hidden=!isLift;cycleOptions.hidden=typeSelect.value!=="Cycling";document.getElementById("generated-plan").hidden=true});
   let currentGenerated=null;
   const moveBank={
     upper:{bodyweight:["Wall or counter push-ups","Prone Y-T raises","Wall slides","Incline plank hold"],dumbbells:["Dumbbell floor press","One-arm dumbbell row","Seated shoulder press","Dumbbell curls","Lateral raises","Overhead triceps extensions"],gym:["Barbell or machine bench press","Chest-supported row","Overhead press","Lat pulldown","Incline dumbbell press","Cable triceps pressdown"]},
@@ -137,6 +138,21 @@
       steps=[["Warm up",warm+" min brisk walk + easy jog"],["Easy run",work+" min at a pace where you can comfortably talk"],["Cool down",cool+" min easy walk"]];
     }
     return {title:titles[focus],category:"Run",duration:minutes,steps,safety:"Build duration gradually, especially for long runs. Keep the effort comfortable, take walk breaks, and stop if you feel pain, dizzy, or unwell."};
+  };
+  const makeRide=(focus,level,minutes)=>{
+    const beginner=level==="Beginner",warm=8,cool=5,work=Math.max(7,minutes-warm-cool);
+    const titles={easy:"Easy spin",endurance:"Steady endurance ride",intervals:"Controlled cycling intervals",hills:"Hill strength ride"};
+    let steps=[];
+    if(focus==="intervals"){
+      const rounds=beginner?4:6,on=beginner?1:2,off=2,hard=rounds*(on+off);
+      steps=[["Warm up",warm+" min very easy spinning"],["Intervals",rounds+" rounds: "+on+" min strong but controlled, then "+off+" min easy spinning"],["Easy ride",Math.max(0,work-hard)+" min relaxed pace"],["Cool down",cool+" min gentle spinning"]];
+    }else if(focus==="hills"){
+      const rounds=beginner?4:6;
+      steps=[["Warm up",warm+" min easy spinning"],["Hill repeats",rounds+" × 60 sec seated climb at a steady effort; recover easily on the way down or between reps"],["Endurance ride",Math.max(0,work-rounds*3)+" min easy-to-steady spinning"],["Cool down",cool+" min very easy"]];
+    }else{
+      steps=[["Warm up",warm+" min easy spinning"],[focus==="easy"?"Comfortable ride":"Endurance block",work+" min at an easy effort where you can speak in full sentences; keep the pace smooth"],["Cool down",cool+" min gentle spinning"]];
+    }
+    return {title:titles[focus],category:"Cycling",duration:minutes,steps,safety:"Use a safe route or stationary bike, wear a helmet outdoors, and build ride time gradually. Keep effort comfortable and stop if you feel pain, dizzy, or unwell."};
   };
   const makeLift=(focus,goal,equipment,level,minutes)=>{
     const beginner=level==="Beginner",body=equipment==="bodyweight",advanced=level!=="Beginner";
@@ -196,7 +212,9 @@
     const type=typeSelect.value,level=levelSelect.value;
     const plan=type==="Run"
       ?makeRun(runFocus.value,level,Number(runDuration.value))
-      :makeLift(document.getElementById("lift-focus").value,document.getElementById("lift-goal").value,document.getElementById("lift-equipment").value,level,Number(document.getElementById("lift-duration").value));
+      :type==="Lift"
+        ?makeLift(document.getElementById("lift-focus").value,document.getElementById("lift-goal").value,document.getElementById("lift-equipment").value,level,Number(document.getElementById("lift-duration").value))
+        :makeRide(document.getElementById("cycle-focus").value,level,Number(document.getElementById("cycle-duration").value));
     showGenerated(plan);
   });
   renderCalendar();drawWorkouts();
