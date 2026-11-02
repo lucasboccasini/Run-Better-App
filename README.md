@@ -1,17 +1,18 @@
 # Run Better App
 
-A calm, forest-inspired starting point for a running app. The first screen brings together weekly progress, recent runs, and a simple run timer.
+A simple, welcoming place to find movement that feels good. Explore running, strength, cycling, and mobility in a forest-inspired interface.
 
 ## Preview
 
-Open `index.html` in a browser. The app is a static prototype and does not need a build step.
+Open `index.html` in a browser, or visit the [live app](https://lucasboccasini.github.io/Run-Better-App/). The prototype is static and does not need a build step.
 
-## Project files
+## What's here
 
-- `index.html` — dashboard structure and run timer dialog
-- `styles.css` — responsive layout and forest color palette
-- `app.js` — start, pause, and finish interactions for the run timer
+- A responsive home screen with weekly activity progress
+- Activity discovery with search and beginner or experienced options
+- A simple timer for a selected activity
+- Custom CSS artwork; no stock photos
 
 ## Project status
 
-This is an early interface prototype. Run history and progress are sample content and are not saved yet.
+This is an early interface prototype. The activity and progress data are examples and are not saved yet.
