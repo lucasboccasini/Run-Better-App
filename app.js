@@ -51,16 +51,16 @@
     .builder-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
     .builder-choice{display:contents}
     .builder-choice[hidden]{display:none}
-    .builder-fields textarea{width:100%;min-height:74px;padding:10px 11px;border:1px solid #e1e5da;border-radius:8px;background:#fffefa;color:#26382f;font:inherit;resize:vertical}.builder-fields label small{display:block;font-size:8px;color:#7f8a80;margin-top:4px}#custom-equipment-field[hidden]{display:none}.builder-level-note{grid-column:1/-1;margin:-2px 0 0;padding:10px 12px;border-radius:8px;background:#f0f3e9;color:#67785f;font-size:10px;line-height:1.5}
-    .generated-plan{margin-top:18px;padding:19px;border:1px solid #dfe7d7;border-radius:14px;background:linear-gradient(145deg,#f4f6ee,#fffefa)}
+    .builder-fields textarea{width:100%;min-height:74px;padding:10px 11px;border:1px solid #e1e5da;border-radius:8px;background:#fffefa;color:#26382f;font:inherit;resize:vertical}.builder-fields label small{display:block;font-size:8px;color:#7f8a80;margin-top:4px}#custom-equipment-field[hidden]{display:none}.builder-level-note{grid-column:1/-1;margin:-2px 0 0;padding:10px 12px;border-radius:8px;background:#EEF1FF;color:#42549E;font-size:10px;line-height:1.5}
+    .generated-plan{margin-top:18px;padding:19px;border:1px solid #E2E7F2;border-radius:16px;background:linear-gradient(145deg,#F7F8FF,#FFFFFF)}
     .generated-plan[hidden]{display:none}
     .generated-plan h3{font:500 21px var(--serif);color:var(--forest);margin:7px 0}
     .generated-plan p{font-size:10px;color:#78847b;line-height:1.6}
     .plan-meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
-    .plan-meta span{font-size:9px;border-radius:20px;background:#e7eddf;color:#5c734d;padding:6px 9px}
+    .plan-meta span{font-size:9px;border-radius:20px;background:#EEF1FF;color:#3455F5;padding:6px 9px}
     .session-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:13px 0}
     .session-step{background:white;border:1px solid #e9ece4;border-radius:9px;padding:10px}
-    .session-step strong{display:block;color:#365644;font-size:10px;margin-bottom:4px}
+    .session-step strong{display:block;color:#3455F5;font-size:10px;margin-bottom:4px}
     .session-step span{font-size:9px;color:#7e8980;line-height:1.5}
     .plan-safety{font-size:9px!important;color:#899389!important}
     .calendar-event.cycle{background:#e8e9f4;color:#656893}
@@ -198,7 +198,7 @@
       add(gear.rings||gear.pullup,["Hanging knee raise variation"]);
       if(goal==="crossfit"){add(gear.medicine,["Medicine-ball slams"]);add(gear.step,["Controlled box step-overs"])}
     }
-    const unique=[...new Set(moves)],preference={powerlifting:["Back squat","Deadlift","Romanian deadlift","Barbell floor press","Barbell row","Overhead press","Goblet squat"],bodybuilding:["Goblet squat","Dumbbell floor press","Lateral raises","Biceps curls","Triceps extensions"],crossfit:["Dumbbell thrusters","Kettlebell clean to press","Medicine-ball slams","Bench or box step-ups","Farmer carry","Ring rows"],recreational:[]}[goal]||[];
+    const unique=[...new Set(moves)],basePreference={powerlifting:["Back squat","Deadlift","Romanian deadlift","Barbell floor press","Barbell row","Overhead press","Goblet squat"],bodybuilding:["Goblet squat","Dumbbell floor press","Lateral raises","Biceps curls","Triceps extensions"],crossfit:["Dumbbell thrusters","Kettlebell clean to press","Medicine-ball slams","Bench or box step-ups","Farmer carry","Ring rows"],recreational:[]}[goal]||[],customPowerPriority=focus==="full"?[...(gear.barbell?["Back squat","Deadlift","Barbell floor press","Barbell row"]:[]),...(gear.bands?["Band-resisted squat","Resistance-band chest press","Pull-up or chin-up variation","Resistance-band row","Banded good morning"]:[]),...(gear.dumbbells?["Goblet squat","Dumbbell floor press","One-arm dumbbell row","Dumbbell Romanian deadlift"]:[]),...(gear.kettlebell?["Kettlebell goblet squat","Kettlebell floor press","One-arm kettlebell row","Kettlebell deadlift"]:[]),...(gear.cable?["Cable squat","Cable chest press","Seated cable row","Cable pull-through"]:[]),...(gear.rings?["Ring push-ups","Ring rows"]:[]),...(gear.pullup?["Pull-up or chin-up variation","Scapular pull-ups"]:[])]:[],preference=goal==="powerlifting"&&custom?customPowerPriority:basePreference;
     return unique.sort((x,y)=>{const xi=preference.indexOf(x),yi=preference.indexOf(y);return(xi<0?99:xi)-(yi<0?99:yi)});
   };
   const makeLift=(focus,goal,equipment,level,minutes,customInventory="")=>{
@@ -208,10 +208,11 @@
     const moves=custom?customMovesForGoal(focus,goal,detected.gear):movesForGoal(goal,focus,equipment);
     const equipmentLabel=custom?(detected.labels.length?detected.labels.join(", "):"Bodyweight fallback"):equipment==="bodyweight"?"No equipment":equipment==="dumbbells"?"Dumbbells":"Full gym / barbell";
     const customNote=custom&&!detected.labels.length?" I could not match the typed items to a safe movement, so this plan uses bodyweight exercises. Try terms such as dumbbells, resistance bands, kettlebell, barbell, bench, pull-up bar, cable machine, rings, box, or medicine ball.":custom&&detected.labels.length?" Exercises below are chosen from equipment types you listed; confirm each exercise fits the exact items you own.":"";
+    const powerliftingNote=goal==="powerlifting"&&custom&&!detected.gear.barbell?" No barbell or rack was listed, so this is general strength work with your available equipment, not competition squat, bench, and deadlift practice.":"";
     let steps=[];
     if(goal==="powerlifting"){
       const main=moves[0],secondary=moves.slice(1);
-      steps.push(["Warm up + technique",Math.max(8,Math.round(minutes*.08))+" min: easy cardio, joint prep, then several light ramp-up sets. Practice crisp reps."],["Main lift · "+main,beginner?"3–4 × 5 at a light-to-moderate load; finish each set with 3–4 good reps still possible.":"4–5 × 3–5 at a challenging but controlled effort (about 2 reps left in reserve); rest 2–4 min."],["Secondary strength",secondary.slice(0,2).join(" + ")+" · "+(beginner?"3 × 6–8 each, smooth technique":"3–4 × 5–8 each, rest 2–3 min")]);
+      steps.push(["Warm up + technique",Math.max(8,Math.round(minutes*.08))+" min: easy cardio, joint prep, then several light ramp-up sets. Practice crisp reps."],[(custom&&!detected.gear.barbell?"Strength variation · ":"Main lift · ")+main,custom&&!detected.gear.barbell?"3 × 8–10 controlled reps with moderate resistance; focus on a smooth setup and full range.":beginner?"3–4 × 5 at a light-to-moderate load; finish each set with 3–4 good reps still possible.":"4–5 × 3–5 at a challenging but controlled effort (about 2 reps left in reserve); rest 2–4 min."],["Secondary strength",secondary.slice(0,2).join(" + ")+" · "+(beginner?"3 × 6–8 each, smooth technique":"3–4 × 5–8 each, rest 2–3 min")]);
       if(minutes>=60)steps.push(["Assistance work",moves[2]+" · "+(beginner?"2–3 × 8–10":"3 × 8–12")+"; keep it submaximal"]);
       if(minutes>=90)steps.push(["Extra practice / recovery",Math.max(10,minutes-75)+" min for long rests between quality sets, mobility, and optional light technique practice. Do not turn this into repeated max attempts."]);
       steps.push(["Cool down","5–10 min easy movement and comfortable mobility"]);
@@ -239,7 +240,7 @@
       if(minutes>=60)steps.push(["Extra sets / technique",Math.max(10,minutes-Math.round(minutes*.7))+" min: add a set to priority movements or practice easy technique. Keep form steady; do not rush to fill time."]);
       steps.push(["Cool down","5–10 min easy walking and comfortable mobility"]);
     }
-    return {title:names[focus]+" · "+goalNames[goal],category:"Lift",duration:minutes,equipmentLabel,steps,safety:"Begin with a load and variation you can control. Stop for sharp pain or dizziness. Powerlifting and CrossFit-style sessions are educational templates, not a substitute for in-person coaching; avoid max attempts without qualified supervision."+customNote};
+    return {title:names[focus]+" · "+goalNames[goal],category:"Lift",duration:minutes,equipmentLabel,steps,safety:"Begin with a load and variation you can control. Stop for sharp pain or dizziness. Powerlifting and CrossFit-style sessions are educational templates, not a substitute for in-person coaching; avoid max attempts without qualified supervision."+customNote+powerliftingNote};
   };
   const showGenerated=plan=>{
     currentGenerated=plan;
