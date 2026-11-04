@@ -194,9 +194,10 @@
   const showGenerated=plan=>{
     currentGenerated=plan;
     const box=document.getElementById("generated-plan");
-    box.innerHTML='<span class="workout-tag">'+plan.category.toUpperCase()+' · BUILT FOR YOU</span><h3>'+plan.title+'</h3><div class="plan-meta"><span>'+plan.duration+' minutes</span><span>'+levelSelect.value+'</span><span>'+new Intl.DateTimeFormat(undefined,{weekday:"long",month:"short",day:"numeric"}).format(new Date(planDate.value+"T12:00:00"))+'</span></div><div class="session-steps">'+plan.steps.map((step,i)=>'<div class="session-step"><strong>'+String(i+1).padStart(2,"0")+' · '+step[0]+'</strong><span>'+step[1]+'</span></div>').join("")+'</div><p class="plan-safety">'+plan.safety+'</p><button class="start-button" id="save-generated" type="button"><span class="play-icon">＋</span><span>Save this session to calendar</span><span class="button-arrow">↗</span></button>';
+    box.innerHTML='<span class="workout-tag">'+plan.category.toUpperCase()+' · BUILT FOR YOU</span><h3>'+plan.title+'</h3><div class="plan-meta"><span>'+plan.duration+' minutes</span><span>'+levelSelect.value+'</span><span>'+new Intl.DateTimeFormat(undefined,{weekday:"long",month:"short",day:"numeric"}).format(new Date(planDate.value+"T12:00:00"))+'</span></div><div class="session-steps">'+plan.steps.map((step,i)=>'<div class="session-step"><strong>'+String(i+1).padStart(2,"0")+' · '+step[0]+'</strong><span>'+step[1]+'</span></div>').join("")+'</div><p class="plan-safety">'+plan.safety+'</p><button class="outline-button" id="start-generated" type="button">Start this session ▶</button><button class="start-button" id="save-generated" type="button"><span class="play-icon">＋</span><span>Save this session to calendar</span><span class="button-arrow">↗</span></button>';
     box.hidden=false;
     document.getElementById("form-note").textContent="Your session is ready. Save it to add it to your week.";
+    document.getElementById("start-generated").addEventListener("click",()=>openTimer(plan.title,plan.category));
     document.getElementById("save-generated").addEventListener("click",()=>{
       if(!currentGenerated||!planDate.value)return;
       const plan={type:currentGenerated.category,name:currentGenerated.title,duration:currentGenerated.duration,date:planDate.value,steps:currentGenerated.steps};
