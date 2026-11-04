@@ -22,11 +22,12 @@
         <a class="nav-link" href="lift.html"><span>⟷</span> Lift</a>
         <a class="nav-link" href="nutrition.html"><span>◉</span> Nutrition</a>
         <a class="nav-link" href="sleep.html"><span>☾</span> Sleep</a>
+        <a class="nav-link" href="#friends"><span>♡</span> Friends</a>
         <a class="nav-link" href="#calendar"><span>▦</span> Calendar</a>
       </nav>
       <div class="sidebar-bottom">
         <div class="week-card"><div class="week-card-top"><span>Your weekly goal</span><span>✳</span></div><strong>3 <small>of 5 days</small></strong><div class="progress-track"><span style="width:60%"></span></div><p>You’re building a lovely rhythm.</p></div>
-        <button class="profile-button" type="button"><span class="avatar">J</span><span class="profile-copy"><strong>Jamie Parker</strong><small>Growing at your pace</small></span><span class="profile-more">···</span></button>
+        <a class="profile-button" href="#friends" aria-label="Open your profile and friends"><span class="avatar" id="profile-avatar">J</span><span class="profile-copy"><strong id="sidebar-profile-name">Your profile</strong><small id="sidebar-profile-handle">Set up your profile</small></span><span class="profile-more">↗</span></a>
       </div>
     </aside>
 
@@ -34,7 +35,7 @@
       <header class="topbar"><div class="mobile-brand">run better<span class="brand-period">.</span></div><div class="today-label"><span class="status-dot"></span><span id="today-date">Today</span></div><button class="icon-button" aria-label="Notifications" type="button">♧<span class="notification-dot"></span></button></header>
 
       <section class="welcome">
-        <div class="welcome-copy"><p class="eyebrow">A LITTLE SPACE FOR YOU</p><h1>Hi Jamie,<br><em>how do you want to move?</em></h1><p class="welcome-subtitle">A walk, a lift, a run. Find something that feels good today.</p><a class="start-button" href="#build"><span class="play-icon">✳</span><span>Build your own workout</span><span class="button-arrow">↗</span></a></div>
+        <div class="welcome-copy"><p class="eyebrow">A LITTLE SPACE FOR YOU</p><h1><span id="welcome-greeting">Hi there,</span><br><em>how do you want to move?</em></h1><p class="welcome-subtitle">A walk, a lift, a run. Find something that feels good today.</p><a class="start-button" href="#build"><span class="play-icon">✳</span><span>Build your own workout</span><span class="button-arrow">↗</span></a></div>
         <div class="hero-art" role="img" aria-label="A custom illustration of a winding trail through green hills"><div class="sun"></div><div class="mountain mountain-back"></div><div class="mountain mountain-front"></div><div class="tree tree-one"><i></i></div><div class="tree tree-two"><i></i></div><div class="tree tree-three"><i></i></div><div class="trail"></div><div class="hero-note"><span class="note-icon">☼</span><span><strong>Your pace is the right pace</strong><small>Every little bit counts.</small></span></div></div>
       </section>
 
@@ -44,7 +45,7 @@
         <div class="streak"><span class="streak-icon">✹</span><span><strong>3 / 5</strong><small>days this week</small></span></div>
       </section>
 
-      <section class="discover-section" id="explore">
+<section class="content-section social-section" id="friends"><div class="section-heading"><div><p class="eyebrow">YOUR PEOPLE, YOUR PROGRESS</p><h2>Profile & friends</h2></div><span class="section-badge">Share your latest session</span></div><p class="section-intro">Set up a profile, find friends by name or handle, and see their latest completed run or lift.</p><div class="social-layout"><section class="social-card"><h3>Your profile</h3><p class="social-status" id="social-status" aria-live="polite">Set up your profile. It saves on this device.</p><form id="profile-form" class="social-form"><label>Display name<input id="profile-name" type="text" maxlength="40" placeholder="Your name" required></label><label>Searchable handle<input id="profile-handle" type="text" maxlength="24" pattern="[A-Za-z0-9_]{3,24}" placeholder="yourname" required><small>3–24 letters, numbers, or underscores.</small></label><button class="start-button" type="submit"><span class="play-icon">✓</span><span>Save profile</span></button></form><form id="auth-form" class="social-form auth-form"><label>Email for cross-device sign-in<input id="auth-email" type="email" placeholder="you@example.com" required></label><button class="outline-button" type="submit">Email me a sign-in link ↗</button></form><button class="text-button signout-button" id="signout-button" type="button" hidden>Sign out</button></section><section class="social-card"><h3>Find friends</h3><p>Search by their display name or handle. They’ll need a profile to appear.</p><form id="friend-search-form" class="friend-search"><label class="sr-only" for="friend-query">Find a friend by name or handle</label><input id="friend-query" type="search" placeholder="Search name or @handle" minlength="2"><button class="outline-button" type="submit">Search</button></form><div id="friend-search-results" class="social-list" aria-live="polite"></div><div class="social-divider"></div><h3>Your friends</h3><div id="friend-requests" class="social-list"></div><div id="friend-list" class="social-list"></div></section><section class="social-card activity-social-card"><h3>Recent activity</h3><p>When you finish a timed session, it appears here and on your friends’ profiles.</p><div id="my-activity" class="social-list"><p class="empty-social">Your finished sessions will show here.</p></div></section></div></section>      <section class="discover-section" id="explore">
         <div class="section-heading"><div><p class="eyebrow">PICK WHAT FEELS GOOD</p><h2>Explore movement</h2></div><label class="search-box"><span aria-hidden="true">⌕</span><input id="activity-search" type="search" placeholder="Search activities" aria-label="Search activities"></label></div>
         <div class="activity-tiles" aria-label="Activity types"><button class="activity-tile selected" data-filter="all" type="button"><span class="tile-icon run-icon">↗</span><strong>All</strong></button><button class="activity-tile" data-filter="Running" type="button"><span class="tile-icon trail-icon">⌁</span><strong>Running</strong></button><button class="activity-tile" data-filter="Strength" type="button"><span class="tile-icon strength-icon">⟷</span><strong>Strength</strong></button><button class="activity-tile" data-filter="Cycling" type="button"><span class="tile-icon cycle-icon">◉</span><strong>Cycling</strong></button><button class="activity-tile" data-filter="Mobility" type="button"><span class="tile-icon mobility-icon">✳</span><strong>Mobility</strong></button></div>
         <div class="section-heading workout-heading"><div><p class="eyebrow">A GOOD PLACE TO BEGIN</p><h2>Made for your day</h2></div><div class="level-switch" role="group" aria-label="Choose your experience level"><button class="level-button active" data-level="Beginner" type="button">Beginner</button><button class="level-button" data-level="Experienced" type="button">Experienced</button></div></div>
@@ -83,9 +84,12 @@
     </main>
   </div>
 
-  <nav class="mobile-nav" aria-label="Bottom navigation"><a class="active" href="#home"><span>⌂</span>Home</a><a href="#build"><span>＋</span>Build</a><a href="#explore"><span>✳</span>Explore</a><a href="#guides"><span>✳</span>Guides</a><a href="#calendar"><span>▦</span>Calendar</a></nav>
+  <nav class="mobile-nav" aria-label="Bottom navigation"><a class="active" href="#home"><span>⌂</span>Home</a><a href="#build"><span>＋</span>Build</a><a href="#explore"><span>✳</span>Explore</a><a href="#friends"><span>♡</span>Friends</a><a href="#calendar"><span>▦</span>Calendar</a></nav>
 
+  <div class="friend-modal" id="friend-modal" hidden><article class="friend-modal-card" role="dialog" aria-modal="true" aria-labelledby="friend-modal-title"><button id="friend-modal-close" class="friend-modal-close" type="button" aria-label="Close profile">×</button><p class="eyebrow">FRIEND PROFILE</p><h2 id="friend-modal-title"></h2><p id="friend-modal-handle"></p><div class="page-callout"><strong>Most recent workout</strong><p id="friend-modal-activity"></p></div></article></div>
   <div class="run-modal" id="run-modal" aria-hidden="true"><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="run-title"><button class="modal-close" id="close-run" aria-label="Close" type="button">×</button><span class="modal-leaf">✳</span><p class="eyebrow" id="modal-category">A LITTLE TIME FOR YOU</p><h2 id="run-title">Ready when you are.</h2><p class="modal-copy">Take a breath, find a comfortable pace, and enjoy the moment.</p><div class="run-timer" id="run-timer">00:00</div><div class="run-actions"><button class="start-button" id="timer-toggle" type="button"><span class="play-icon">▶</span><span>Begin</span></button><button class="finish-button" id="finish-run" type="button">Finish</button></div><p class="modal-hint" id="run-hint">Your timer is ready.</p></div></div>
-  <script src="app.js?v=20261103f"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js?v=20261104b"></script>
+  <script src="social.js?v=20261104a"></script>
 </body>
 </html>

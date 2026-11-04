@@ -1,0 +1,13 @@
+create table if not exists public.profiles(id uuid primary key references auth.users(id) on delete cascade,display_name text not null check(char_length(display_name) between 1 and 40),handle text not null unique check(handle ~ '^[a-z0-9_]{3,24}$'),created_at timestamptz not null default now());
+create table if not exists public.friendships(requester_id uuid not null references public.profiles(id) on delete cascade,addressee_id uuid not null references public.profiles(id) on delete cascade,status text not null default 'pending' check(status in ('pending','accepted')),created_at timestamptz not null default now(),primary key(requester_id,addressee_id),check(requester_id<>addressee_id));
+create table if not exists public.workouts(id uuid primary key default gen_random_uuid(),user_id uuid not null references public.profiles(id) on delete cascade,title text not null check(char_length(title) between 1 and 100),category text not null,duration_minutes integer not null default 1 check(duration_minutes between 1 and 1440),completed_at timestamptz not null default now());
+alter table public.profiles enable row level security; alter table public.friendships enable row level security; alter table public.workouts enable row level security;
+create policy "Authenticated users can search profiles" on public.profiles for select to authenticated using(true);
+create policy "Users create own profile" on public.profiles for insert to authenticated with check(auth.uid()=id);
+create policy "Users update own profile" on public.profiles for update to authenticated using(auth.uid()=id) with check(auth.uid()=id);
+create policy "Users see their friendship edges" on public.friendships for select to authenticated using(auth.uid()=requester_id or auth.uid()=addressee_id);
+create policy "Users send friend requests" on public.friendships for insert to authenticated with check(auth.uid()=requester_id and status='pending');
+create policy "Recipients accept friend requests" on public.friendships for update to authenticated using(auth.uid()=addressee_id and status='pending') with check(auth.uid()=addressee_id and status='accepted');
+create policy "Either friend can remove an edge" on public.friendships for delete to authenticated using(auth.uid()=requester_id or auth.uid()=addressee_id);
+create policy "Users see own and accepted friends workouts" on public.workouts for select to authenticated using(auth.uid()=user_id or exists(select 1 from public.friendships f where f.status='accepted' and ((f.requester_id=auth.uid() and f.addressee_id=workouts.user_id) or (f.addressee_id=auth.uid() and f.requester_id=workouts.user_id))));
+create policy "Users log own workouts" on public.workouts for insert to authenticated with check(auth.uid()=user_id);
