@@ -115,3 +115,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(min-width:761px) and (max-width:1300px){.hero-columns{width:82%}}
 @media(min-width:1301px){.hero-columns{width:100%}}
 @media(max-width:760px){.hero-columns{width:100%}}
+
+
+/* Keep the hero grid within its panel and tighten the page's vertical rhythm. */
+.hero-columns{width:auto;margin:14px;min-width:0}
+.content-section{padding:18px 0 16px}
+.section-heading{margin-bottom:8px}
+.section-intro{margin:7px 0 12px;line-height:1.6}
+.discover-section{padding:2px 0 12px}
+@media(max-width:760px){
+  .hero-columns{width:auto;margin:9px}
+  .content-section{padding:15px 0 13px}
+  .calendar-section{padding-bottom:24px}
+}
