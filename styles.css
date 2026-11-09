@@ -63,3 +63,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .sleep-art{background:linear-gradient(145deg,#182657,#5163ca 72%,#9ba5f4)}
 .sleep-hill{background:#8390e8}.hill-a{background:#707fe0}.hill-b{background:#3d4fb1}.moon{color:#c7f36b}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Four-column movement and wellbeing artwork in the Live Better home hero. */
+.hero-art{background:#e9ecff}
+.hero-columns{height:calc(100% - 42px);margin:21px 18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;align-items:stretch}
+.mosaic-panel{min-width:0;min-height:0;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px 7px;color:#263dce;box-shadow:0 8px 20px #263dce0b}
+.mosaic-panel svg{width:min(54px,58%);height:auto;overflow:visible;fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}
+.mosaic-panel strong{font-size:clamp(9px,.9vw,12px);font-weight:700;letter-spacing:.01em}
+.lift-panel{background:#fff}.run-panel{background:#dce2ff;color:#3455f5}.cycle-panel{background:#eaf4d6;color:#52710e}
+.mosaic-stack{min-height:0;display:grid;grid-template-rows:1fr 1fr;gap:9px}
+.food-panel{background:#fff2dd;color:#a05b1c;gap:4px}
+.sleep-panel{background:#222e63;color:#c7f36b;gap:4px}
+.food-panel svg,.sleep-panel svg{width:min(37px,44%)}.food-panel strong,.sleep-panel strong{font-size:clamp(8px,.8vw,10px)}
+@media(max-width:760px){.hero-columns{height:calc(100% - 20px);margin:10px 9px;gap:6px}.mosaic-stack{gap:6px}.mosaic-panel{border-radius:10px;padding:7px 3px;gap:4px}.mosaic-panel svg{width:min(38px,58%);stroke-width:3.2}.mosaic-panel strong{font-size:8px}.food-panel svg,.sleep-panel svg{width:min(26px,46%)}.food-panel strong,.sleep-panel strong{font-size:7px}}
