@@ -111,3 +111,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 @media(min-width:761px){.hero-columns{margin:14px 44px 14px 0;gap:5px}}
+
+@media(min-width:761px) and (max-width:1300px){.hero-columns{width:82%}}
+@media(min-width:1301px){.hero-columns{width:100%}}
+@media(max-width:760px){.hero-columns{width:100%}}
