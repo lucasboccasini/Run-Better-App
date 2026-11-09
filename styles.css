@@ -81,3 +81,31 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @media(min-width:761px){main{width:min(1500px,calc(100% - 236px));margin-right:auto}}
 @media(min-width:761px) and (max-width:1100px){main{width:calc(100% - 216px)}}
 @media(max-width:760px){main{width:100%;margin-right:0}}
+
+/* Keep the hero text, five activity columns, and workout builder in separate space. */
+.welcome{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:22px;align-items:stretch;padding:28px 32px;min-height:308px}
+.welcome-copy{max-width:none;min-width:0;align-self:center}
+.hero-art{position:relative;inset:auto;min-width:0;min-height:240px;height:100%;border-radius:18px;background:#e9ecff}
+.hero-columns{height:calc(100% - 28px);margin:14px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;align-items:stretch}
+.mosaic-panel{min-width:0;min-height:0;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px 5px;color:#263dce;box-shadow:0 8px 20px #263dce0b}
+.mosaic-panel svg{width:min(46px,58%);height:auto;overflow:visible;fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}
+.mosaic-panel strong{font-size:clamp(8px,.82vw,11px);font-weight:700;letter-spacing:0;white-space:nowrap}
+.lift-panel{background:#fff}.run-panel{background:#dce2ff;color:#3455f5}.cycle-panel{background:#eaf4d6;color:#52710e}.food-panel{background:#fff2dd;color:#a05b1c}.sleep-panel{background:#222e63;color:#c7f36b}
+.builder-card{width:100%;max-width:100%;grid-template-columns:repeat(2,minmax(0,1fr))}
+.builder-card>*{min-width:0}.builder-card input,.builder-card select,.builder-card textarea{width:100%;min-width:0;max-width:100%}
+@media(max-width:760px){
+  .welcome{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 184px;gap:14px;padding:24px 22px;min-height:0}
+  .welcome-copy{align-self:start;max-width:100%}
+  .welcome h1{font-size:clamp(29px,8vw,33px)}
+  .hero-art{position:relative;inset:auto;height:184px;min-height:184px}
+  .hero-columns{height:calc(100% - 18px);margin:9px;gap:5px}
+  .mosaic-panel{border-radius:10px;padding:6px 2px;gap:6px}
+  .mosaic-panel svg{width:min(35px,62%);stroke-width:3}
+  .mosaic-panel strong{font-size:clamp(7px,2.3vw,9px)}
+  .builder-card{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:420px){
+  .builder-card{grid-template-columns:minmax(0,1fr)}
+  .builder-submit{width:100%;justify-content:center}
+  .form-note{grid-column:1}
+}
