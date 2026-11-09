@@ -1,6 +1,6 @@
-# Run Better App
+# Live Better App
 
-A friendly, forest-inspired place to find movement that feels good. This static prototype brings workout building, coach-led guidance, wellness videos, and a simple weekly calendar into one home.
+A friendly place to find movement that feels good. This static prototype brings workout building, coach-led guidance, wellness videos, and a simple weekly calendar into one home.
 
 ## Preview
 
@@ -17,7 +17,7 @@ Open `index.html` in a browser, or visit the [live app](https://lucasboccasini.g
 ## Project files
 
 - `index.html` — home screen and activity sections
-- `styles.css` — responsive forest color palette and layouts
+- `styles.css` — responsive blue-and-lime color palette and layouts
 - `app.js` — activity filters, workout timer, and local calendar
 
 ## Project status
