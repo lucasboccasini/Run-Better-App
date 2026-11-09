@@ -109,3 +109,5 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .builder-submit{width:100%;justify-content:center}
   .form-note{grid-column:1}
 }
+
+@media(min-width:761px){.hero-columns{margin:14px 44px 14px 0;gap:5px}}
